@@ -33,39 +33,14 @@
 
     <script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
     <script type="text/javascript">
-    var $vk = {
-      init: function() {
-        VK.init(function() {
-            // API initialization succeeded
-            // Your code here
-          }, function() {
-            // API initialization failed
-            // Can reload page here
-          }, '5.68');
-        },
-        call: function(method, params) {
-          VK.api(method, params, function(data) {
-            if (data.response) {
-          // Тут наверное еще нужно проверять что у Response статус 200, если нет то вызывать defer.reject
-          }
-          else {
-          }
-        });
-      }
-    };
-
-    $vk.init().then(function() {
-      // Init success
+      VK.init(function() {
+     // API initialization succeeded
+     // Your code here
       }, function() {
-        // Init failed.
-      });
-
-      $vk.call('method_name', {}).then(function(response) {
-        // success
-      }, function(error) {
-        // fail
-      });
-    </script>
+     // API initialization failed
+     // Can reload page here
+      }, '5.68');
+      </script>
 
     <script>
     var people =    [
