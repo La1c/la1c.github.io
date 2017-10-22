@@ -14,16 +14,22 @@
     <link href="starter-template.css" rel="stylesheet">
   </head>
   <body>
-      <div class="header container-fluid themed-colored">
-        Здесь будет пикча
+      <!--<div class="header container-fluid themed-colored">-->
+      <!--</div>-->
+      <div class="jumbotron jumbotron-fluid">
+      <div class="container-fluid">
+      <img src="https://sun9-13.userapi.com/c836720/v836720505/56e36/0rrydy7oDOY.jpg" class="container-fluid top-image"></img>
+        <p class="lead">Наш алгоритм подобрал для Вас несколько людей со схожими интересами, предложите им пойти на событие вместе?</p>
+        </div>
       </div>
-      <main role="main" class="container">
+      <main role="main" class="container-fluid mx-auto">
     </main><!-- /.container -->
 
     <!-- NAVBAR -->
     <nav class="navbar fixed-bottom navbar-light bg-light">
       <form class="form-inline mx-auto">
-        <button class="btn btn-outline-light themed-colored" type="button" data-toggle="modal" id="inviteButton" data-target="#invitationModal">Сформировать приглашения</button>
+        <button class="btn btn-outline-light themed-colored" type="button" data-toggle="modal" id="cancelSelectionButton" onclick="togleSelection()" disabled>Отменить выделение</button>
+        <button class="btn btn-outline-light themed-colored" type="button" data-toggle="modal" id="inviteButton" data-target="#invitationModal" disabled>Создать приглашения</button>
       </form>
     </nav>
 
@@ -32,20 +38,23 @@
       <div class="modal-dialog verticaly-centered" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="invitationModalLabel">Формируем приглашение</h5>
+            <h5 class="modal-title" id="invitationModalLabel">Создать приглашение</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
           </div>
           <div class="modal-body">
             <div class="d-flex flex-row mx-auto">
-              <img  src="https://pp.userapi.com/c620516/v620516054/c6f1/10TzzzWt_EU.jpg" class="p-2 rounded-circle">
-             <div class="p-2 align-self-center">Текст</div>
+              <img  src="https://pp.userapi.com/c619717/v619717519/1680c/zo9xVisAjMo.jpg" class="p-2 rounded-circle">
+             <div class="p-2 align-self-center annotation">
+               Мы создали универсальное приглашение, которое вы можете отправить выбранным пользователям. Нажмите "Пригласить" и ждите ответа!
+             </div>
            </div>
            <div class="d-flex flex-column">
             <div class="form-group">
               <label for="MessageArea">Приглашение:</label>
-              <textarea class="form-control" id="MessageArea" rows="3">Приглашаю Вас на событие X, которое пройдет в N через две недели – DD/MM/YY
+              <textarea class="form-control" id="MessageArea" rows="5">Здравствуйте! Мы оба идём на Junction. Мне неизвестный алгоритм нашел наши интересы схожими и предложил пойти вместе. Я за, вместе веселее. Идем?
+Событие пройдёт 24-26  в Хельсинки.
             </textarea>
           </div>
           </div>
@@ -66,7 +75,9 @@
     <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.3/umd/popper.min.js" integrity="sha384-vFJXuSJphROIrBnz7yo7oB41mKfc8JzQZiCq4NCceLEaO4IHwicKwpJf9c9IpFgh" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/js/bootstrap.min.js" integrity="sha384-alpBpkh1PFOepccYVYDB4do5UnbKysX5WZXm3XxPqe5iKTfUKjNkCk9SaVuEZflJ" crossorigin="anonymous"></script>
-<!--
+
+    <!-- VK API -->
+
     <script src="https://vk.com/js/api/xd_connection.js?2"  type="text/javascript"></script>
     <script type="text/javascript">
     var sendRequest = function(){
@@ -87,12 +98,85 @@
         console.log("Init failed")
       }, '5.68');
     </script>
--->
+
+    <!-- LOADING LIST OF USERS -->
     <script>
+    var people = {}
+    var selectedID = {}
+    var selectedCNT = 0
+    var eventID = 58253397
+    var userID = 221142478
+    var userPic = "https://pp.userapi.com/c619717/v619717519/1680c/zo9xVisAjMo.jpg"
+    var people=[
+  {
+    "id": 17008411,
+    "name": "\u0413\u0430\u043b\u0438\u043d\u0430 \u0424\u0438\u043b\u044c\u0447\u0430\u043a\u043e\u0432\u0430",
+    "photo": "https://pp.userapi.com/c628426/v628426411/3fc0e/QqUPrQRYTlc.jpg"
+  },
+  {
+    "id": 78675396,
+    "name": "\u041d\u043e\u0433\u0430 \u041f\u0440\u0430\u0432\u0430\u044f",
+    "photo": "https://pp.userapi.com/c617320/v617320396/b421/QYn16KU8ikk.jpg"
+  },
+  {
+    "id": 123080210,
+    "name": "\u0410\u043b\u0451\u043d\u0430 \u0412\u0438\u043d\u043d\u0438\u043a\u043e\u0432\u0430",
+    "photo": "https://pp.userapi.com/c638125/v638125465/59d40/8EBp6Fh214w.jpg"
+  },
+  {
+    "id": 35689393,
+    "name": "\u0410\u043d\u0430\u0441\u0442\u0430\u0441\u0438\u044f \u041a\u043b\u0451\u043d\u0441\u043a\u0430\u044f",
+    "photo": "https://pp.userapi.com/c636117/v636117393/403aa/aIWB9MrF0UQ.jpg"
+  },
+  {
+    "id": 16482519,
+    "name": "\u0414\u0430\u0448\u0430 \u0428\u0438\u0440\u0438\u043d\u043a\u0438\u043d\u0430",
+    "photo": "https://pp.userapi.com/c619717/v619717519/1680c/zo9xVisAjMo.jpg"
+  },
+  {
+    "id": 27248952,
+    "name": "\u0415\u0432\u0433\u0435\u043d\u0438\u044f \u0422\u0440\u0430\u043f\u0435\u0437\u043d\u0438\u043a\u043e\u0432\u0430",
+    "photo": "https://pp.userapi.com/c626931/v626931952/3474f/XyE-Zj458hc.jpg"
+  },
+  {
+    "id": 48518487,
+    "name": "\u0414\u0430\u0448\u0430 \u041f\u043e\u043b\u043e\u043d\u0435\u0435\u0432\u0430",
+    "photo": "https://pp.userapi.com/c837129/v837129307/5f204/Uq84gYbtBtc.jpg"
+  },
+  {
+    "id": 182145952,
+    "name": "\u041d\u0438\u043a\u0438\u0442\u0430 \u041c\u0438\u0440\u043e\u0448\u043d\u0438\u0447\u0435\u043d\u043a\u043e",
+    "photo": "https://pp.userapi.com/c837521/v837521952/cde3/VLxO6Yd-T9c.jpg"
+  }
+],html;
+
+      function represent(json) {
+       html = '<div class="container-fluid list" id="userList">';
+         var flag = 0;
+         $.each(json, function(index, v){
+             html += '<div class="d-flex flex-row active-user rounded user-row" id="'+ v["id"] +'" onclick=togleUser(this)>';
+             selectedID["" + v["id"]] = true
+             selectedCNT += 1
+             html += '<img  src="' +v["photo"]+'" class="p-2 rounded-circle">';
+              html += '<div class="p-2 align-self-center">'+v["name"]+ '</div>';
+              html += '</div>';
+          });
+          html += '</div>';
+          $('body').append(html);
+          //console.log(selectedCNT)
+          var button = document.getElementById("inviteButton")
+          button.firstChild.data = 'Создать приглашения (' + selectedCNT + ')'
+          $('input[type="button"], button').disable(false);
+      }
+
     $(document).ready(function () {
       console.log("ready")
-      $.getJSON("http://127.0.0.1:5000/compaignons?user_id=221142478&event_id=58253397", function(){
+      represent(people)
+      /*$.getJSON("http://127.0.0.1:5000/compaignons?user_id=" + userID + "&event_id=" + eventID, function(data){
         console.log( "success" );
+        //console.log(data);
+        people = data
+        represent(people)
       })
       .done(function() {
         console.log( "second success" );
@@ -102,209 +186,52 @@
       })
       .always(function() {
         console.log( "complete" );
+      });*/
       });
-      });
 
-
-    /*
-    var people =    [
-    {'id': 16054,
-    'name': 'Юрий Курочкин',
-    'photo': 'https://pp.userapi.com/c620516/v620516054/c6f1/10TzzzWt_EU.jpg'},
-    {'id': 716588,
-    'name': 'Роман Бреслав',
-    'photo': 'https://pp.userapi.com/c841032/v841032634/12867/0Q8yTaa5xZ0.jpg'},
-    {'id': 764951,
-    'name': 'Анастасия Матюшечко',
-    'photo': 'https://pp.userapi.com/c638027/v638027951/4ee2e/iUEOW0Zbvn8.jpg'},
-    {'id': 1698528,
-    'name': 'Дарья Хохлова',
-    'photo': 'https://pp.userapi.com/c639531/v639531169/3c196/IsKe2fTri3o.jpg'},
-    {'id': 1701808,
-    'name': 'Вася Калитеевский',
-    'photo': 'https://pp.userapi.com/c636418/v636418808/56490/q2uWsTGghdM.jpg'},
-    {'id': 2609073,
-    'name': 'Николай Филимонов',
-    'photo': 'https://pp.userapi.com/c636823/v636823073/33fd7/dCvmfYCyCzo.jpg'},
-    {'id': 2721781,
-    'name': 'Стас Воронов',
-    'photo': 'https://pp.userapi.com/c837227/v837227781/2c2ca/BjKIWjsIpiY.jpg'},
-    {'id': 3574342,
-    'name': 'Элла Агеева',
-    'photo': 'https://pp.userapi.com/c639221/v639221805/2da08/rVJ9EKKpq1Q.jpg'},
-    {'id': 4129622,
-    'name': 'Кирилл Васин',
-    'photo': 'https://pp.userapi.com/c637122/v637122622/cf17/Ar1_31-wEIU.jpg'},
-    {'id': 4207936,
-    'name': 'Андрей Демидов',
-    'photo': 'https://pp.userapi.com/c841620/v841620588/2aaa2/baNX_uJ3l2Q.jpg'},
-    {'id': 5237210,
-    'name': 'Татика Гомжина',
-    'photo': 'https://pp.userapi.com/c841131/v841131121/22620/0abg6pxH8Iw.jpg'},
-    {'id': 5858732,
-    'name': 'Виктория Костичева',
-    'photo': 'https://pp.userapi.com/c841620/v841620929/1e7f3/AyEVoEd1S0s.jpg'},
-    {'id': 6519110,
-    'name': 'Даниил Иванов',
-    'photo': 'https://pp.userapi.com/c630322/v630322110/1c115/uq6Wnohj-Pg.jpg'},
-    {'id': 7200257,
-    'name': 'Альберт Гаспарян',
-    'photo': 'https://vk.com/images/camera_100.png'},
-    {'id': 9726692,
-    'name': 'Александр Дружинин',
-    'photo': 'https://pp.userapi.com/c638523/v638523692/19cf6/io04ux4uuiI.jpg'},
-    {'id': 12322724,
-    'name': 'Максим Бруяко',
-    'photo': 'https://pp.userapi.com/c636118/v636118724/4b63/80NOvI8BmjQ.jpg'},
-    {'id': 12525365,
-    'name': 'Иван Варивода',
-    'photo': 'https://pp.userapi.com/c841329/v841329771/e42d/DRPmD7LelyQ.jpg'},
-    {'id': 13318934,
-    'name': 'Марк Астахов',
-    'photo': 'https://pp.userapi.com/c617220/v617220934/ee8c/IS3kJ3ihpvw.jpg'},
-    {'id': 13825495,
-    'name': 'Андрей Баев',
-    'photo': 'https://pp.userapi.com/c840238/v840238134/233da/cYn0sNOZ7tg.jpg'},
-    {'id': 16482519,
-    'name': 'Даша Ширинкина',
-    'photo': 'https://pp.userapi.com/c619717/v619717519/1680c/zo9xVisAjMo.jpg'},
-    {'id': 16890677,
-    'name': 'Юрий Белоусов',
-    'photo': 'https://pp.userapi.com/c841334/v841334490/1b5ee/knH13i7NTt0.jpg'},
-    {'id': 20472862,
-    'name': 'Валентина Круглова',
-    'photo': 'https://pp.userapi.com/c837727/v837727258/6debe/H9qXZoaa0LM.jpg'},
-    {'id': 21596645,
-    'name': 'Никита Поднебесный',
-    'photo': 'https://pp.userapi.com/c841035/v841035645/76e1/whECsHhl9Eo.jpg'},
-    {'id': 24462304,
-    'name': 'Никита Батов',
-    'photo': 'https://pp.userapi.com/c841231/v841231281/22307/UL41qWtev28.jpg'},
-    {'id': 24528767,
-    'name': 'Святослав Грязнов',
-    'photo': 'https://pp.userapi.com/c625318/v625318767/22d18/QVKVQf_0XwE.jpg'},
-    {'id': 25632032,
-    'name': 'Наталья Евсеева',
-    'photo': 'https://pp.userapi.com/c623320/v623320032/3d716/gaphs4PAGtk.jpg'},
-    {'id': 27248952,
-    'name': 'Евгения Трапезникова',
-    'photo': 'https://pp.userapi.com/c626931/v626931952/3474f/XyE-Zj458hc.jpg'},
-    {'id': 27614008,
-    'name': 'Назар Ульмашев',
-    'photo': 'https://pp.userapi.com/c605417/v605417008/55b3/RUl3gKCc8y8.jpg'},
-    {'id': 28646134,
-    'name': 'Ростислав Рябов',
-    'photo': 'https://pp.userapi.com/c627829/v627829134/2e01d/wIWa3-MCHck.jpg'},
-    {'id': 30623577,
-    'name': 'Рост Гориславский',
-    'photo': 'https://vk.com/images/camera_100.png'},
-    {'id': 32291723,
-    'name': 'Лёша Кондратьев',
-    'photo': 'https://pp.userapi.com/c841330/v841330875/1bd35/4xKxue-sHcY.jpg'},
-    {'id': 34154912,
-    'name': 'Алексей Давыдов',
-    'photo': 'https://pp.userapi.com/c636816/v636816912/8189b/FH4kPa8Xo6M.jpg'},
-    {'id': 34190435,
-    'name': 'Артём Кузнецов',
-    'photo': 'https://pp.userapi.com/c638918/v638918435/1660/ZC05r0KfXFI.jpg'},
-    {'id': 36673993,
-    'name': 'Михаил Аникушин',
-    'photo': 'https://pp.userapi.com/c613526/v613526993/1b4b2/SIgK4whb0z8.jpg'},
-    {'id': 37480869,
-    'name': 'Ира Григорьева',
-    'photo': 'https://pp.userapi.com/c636628/v636628869/66d64/qCjlJt0csAU.jpg'},
-    {'id': 40113418,
-    'name': 'Polina Zhornikova',
-    'photo': 'https://pp.userapi.com/c840027/v840027647/3d5e6/9pzI355D_Q4.jpg'},
-    {'id': 80284911,
-    'name': 'Кирилл Пимахов',
-    'photo': 'https://pp.userapi.com/c11253/u80284911/d_565db296.jpg'},
-    {'id': 87753970,
-    'name': 'Аня Явейн',
-    'photo': 'https://pp.userapi.com/c638725/v638725970/38b82/jBFVQE5QLVQ.jpg'},
-    {'id': 96088508,
-    'name': 'Станислав Кузьмин',
-    'photo': 'https://vk.com/images/deactivated_100.png'},
-    {'id': 97103928,
-    'name': 'Маша Лаврентьева',
-    'photo': 'https://pp.userapi.com/c639120/v639120722/4f90d/eAHkHupvJDI.jpg'},
-    {'id': 99411333,
-    'name': 'Алексей Семин',
-    'photo': 'https://pp.userapi.com/c621702/v621702333/1c43/21-wSdGmzY0.jpg'},
-    {'id': 104104835,
-    'name': 'Олег Некрасов',
-    'photo': 'https://pp.userapi.com/c840126/v840126689/1ba14/ZiiA9CqM7L4.jpg'},
-    {'id': 109168459,
-    'name': 'Дмитрий Сальников',
-    'photo': 'https://pp.userapi.com/c637522/v637522837/668ba/oo0KHkTIfRA.jpg'},
-    {'id': 122604928,
-    'name': 'Александр Кондратьев',
-    'photo': 'https://pp.userapi.com/c639631/v639631553/4553c/mjXPytrRmZQ.jpg'},
-    {'id': 148915653,
-    'name': 'Александр Ильин',
-    'photo': 'https://pp.userapi.com/c402221/v402221653/288f/NBw2BfeLo1M.jpg'},
-    {'id': 188636942,
-    'name': 'Пётр Ролдугин',
-    'photo': 'https://pp.userapi.com/c618724/v618724942/b088/CYOokLtua60.jpg'},
-    {'id': 285607743,
-    'name': 'Егор Харченко',
-    'photo': 'https://pp.userapi.com/c636327/v636327743/42dce/0yD3WGFHNdE.jpg'},
-    {'id': 349906885,
-    'name': 'Егор Башарин',
-    'photo': 'https://pp.userapi.com/c836630/v836630885/2a11c/f6rsdgMnfSs.jpg'},
-    {'id': 358315755,
-    'name': 'Анатолий Пашковский',
-    'photo': 'https://pp.userapi.com/c841233/v841233146/234e3/Vid1_jJS_iA.jpg'}
-    ],html;
-
-  var selectedID = {}
-  var selectedCNT = 0
-
-    function () {
-     html = '<div class="container-fluid" id="userList">';
-       var flag = 0;
-       $.each(people, function(index, v){
-           html += '<div class="d-flex flex-row active-user" id="'+ v["id"] +'" onclick=togleUser(this)>';
-           selectedID["" + v["id"]] = true
-           selectedCNT += 1
-           html += '<img  src="' +v["photo"]+'" class="p-2 rounded-circle">';
-            html += '<div class="p-2 align-self-center">'+v["name"]+ '</div>';
-            html += '</div>';
-        });
-        html += '</div>';
-        $('body').append(html);
-        //console.log(selectedCNT)
-        var button = document.getElementById("inviteButton")
-        button.firstChild.data = 'Сформировать приглашения (' + selectedCNT + ')'
-    });
-*/
-
-
-
-
-/*
     function togleUser(element){
         var button = document.getElementById("inviteButton")
-        if (element.className == "d-flex flex-row active-user") {
-        element.className = "d-flex flex-row inactive-user";
+        if (element.className == "d-flex flex-row active-user rounded user-row") {
+        element.className = "d-flex flex-row inactive-user rounded user-row";
         selectedID[element.id] = false
         selectedCNT -= 1
         //console.log(selectedID)
       } else {
-        element.className = "d-flex flex-row active-user";
+        element.className = "d-flex flex-row active-user rounded user-row";
         selectedID[element.id] = true
         selectedCNT += 1
         //console.log(selectedID)
       }
 
-      button.firstChild.data = 'Сформировать приглашения (' + selectedCNT + ')'
+      button.firstChild.data = 'Создать приглашения (' + selectedCNT + ')'
+    }
+
+    function togleSelection(){
+      var list = document.getElementById("userList").childNodes;
+      list.forEach(function(element){
+        console.log(element);
+        if (element.className == "d-flex flex-row active-user rounded user-row") {
+        element.className = "d-flex flex-row inactive-user rounded user-row";
+        selectedID[element.id] = false
+        selectedCNT -= 1
+      }})
+
+      var button = document.getElementById("inviteButton")
+      button.firstChild.data = 'Создать приглашения (' + selectedCNT + ')'
     }
 
     $('#invitationModal').on('show.bs.modal', function (e) {
       var button = document.getElementById("formInvitationButton")
       button.firstChild.data = 'Пригласить! (' + selectedCNT + ')'
     });
-    */
+
+    jQuery.fn.extend({
+    disable: function(state) {
+        return this.each(function() {
+            this.disabled = state;
+        });
+      }
+    });
     </script>
   </body>
 </html>
